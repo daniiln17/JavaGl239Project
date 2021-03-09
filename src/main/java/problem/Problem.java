@@ -138,7 +138,11 @@ public class Problem {
 
         //Figures.renderTriangle(gl, new Vector2(0, 0), new Vector2(0.1, 0.2), new Vector2(0.5, -0.9), false);
        // Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), false);
-        Figures.renderCircle(gl, new Vector2(0,0), 0.2, false);
+        //Figures.renderCircle(gl, new Vector2(0,0), 0.2, false);
+
+        Ray ray = new Ray(new Vector2(-0.1,0.2), new Vector2(0.6,-0.1));
+        ray.render(gl);
+
     }
 
 
