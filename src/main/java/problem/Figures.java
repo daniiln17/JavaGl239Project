@@ -63,8 +63,8 @@ public class Figures {
             int n = 360;
             for (int i = 0; i <= n; i++) {
                 double a = (2 * Math.PI / n) * i;
-                double x = r * Math.cos(a);
-                double y = r * Math.sin(a);
+                double x = pos.x+r * Math.cos(a);
+                double y = pos.y+r * Math.sin(a);
                 gl.glVertex2d(x, y);
             }
                 gl.glEnd();
@@ -74,8 +74,8 @@ public class Figures {
             int n = 360;
             for (int i = 0; i <= n; i++) {
                 double a = (2 * Math.PI / n) * i;
-                double x = r * Math.cos(a);
-                double y = r * Math.sin(a);
+                double x = pos.x+r * Math.cos(a);
+                double y =  pos.y+r * Math.sin(a);
                 gl.glVertex2d(x, y);
             }
             gl.glEnd();

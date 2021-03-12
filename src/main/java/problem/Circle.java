@@ -2,30 +2,28 @@ package problem;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import java.util.Random;
 
 public class Circle {
-    public static void renderCircle(GL2 gl, Vector2 pos, double r, boolean filled) {
-        if (filled) {
-            gl.glBegin(GL.GL_TRIANGLE_FAN);
-            gl.glVertex2d(pos.x, pos.y);
-            int n = 360;
-            for (int i = 0; i <= n; i++) {
-                double a = (2 * Math.PI / n) * i;
-                double x = r * Math.cos(a);
-                double y = r * Math.sin(a);
-                gl.glVertex2d(x, y);
-            }
-            gl.glEnd();
-        }
-        else{
-            gl.glBegin(GL.GL_LINE_STRIP);
-            int n = 360;
-            for (int i = 0; i <= n; i++) {
-                double a = (2 * Math.PI / n) * i;
-                double x = r * Math.cos(a);
-                double y = r * Math.sin(a);
-                gl.glVertex2d(x, y);
-            }
-            gl.glEnd();
-        }}
+    Vector2 pos;
+    double r;
+
+    public Circle(Vector2 pos, double r) {
+        this.pos = pos;
+        this.r = r;
+    }
+
+    public static Circle getRandomCircle() {
+        Random random = new Random();
+        return new Circle(
+                new Vector2(
+                        random.nextDouble() * 2 - 1, random.nextDouble() * 2 - 1
+                ),
+                random.nextDouble() * 0.3
+        );
+    }
+
+    public void render(GL2 gl) {
+        Figures.renderCircle(gl, pos, r, false);
+    }
 }
