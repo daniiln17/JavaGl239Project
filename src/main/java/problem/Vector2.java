@@ -23,15 +23,18 @@ public class Vector2 {
         double y2 = (e + this.y * Math.cos(a)) / l;
         return new Vector2(x2, y2);
     }
-    Vector2 minus(Vector2 v){
-        return new Vector2(this.x-v.x, this.y-v.y);
+
+    Vector2 minus(Vector2 v) {
+        return new Vector2(this.x - v.x, this.y - v.y);
     }
+
     public Vector2 mult(double a) {
         return new Vector2(x * a, y * a);
     }
-    public Vector2 plus(Vector2 v){
-      return new Vector2(this.x+v.x,
-        this.y+v.y);
+
+    public Vector2 plus(Vector2 v) {
+        return new Vector2(this.x + v.x,
+                this.y + v.y);
     }
 
 }

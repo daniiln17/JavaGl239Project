@@ -1,9 +1,7 @@
 package problem;
 
 import javax.media.opengl.GL2;
-import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Класс задачи
@@ -13,8 +11,13 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
-            "Заданы два множества точек в пространстве.\n" +
-            "Требуется построить пересечения и разность этих множеств";
+            "На плоскости задано множество широких лучей\" и множество\n" +
+            "окружностей. Найти такую пару \"широкий луч\"-окружность, что фигура,\n" +
+            "находящаяся внутри \"широкого луча\" и окружности, имеет максимальную \n" +
+            "площадь. В качестве ответа: выделить найденные \"широкий луч\" и\n"+
+            "окружность, выделить контур фигуры, которая ограничивает точки внутри\n"+
+            "найденного \"широкого луча\" и окружности, желательно выделить внутреннее\n"+
+            "пространство фигуры (\"залить цветом\").";
 
     /**
      * заголовок окна
@@ -41,7 +44,6 @@ public class Problem {
     }
 
 
-
     /**
      * Добавить заданное число случайных точек
      *
@@ -51,14 +53,13 @@ public class Problem {
         for (int i = 0; i < n; i++) {
             Circle p = Circle.getRandomCircle();
             circles.add(p);
-            Ray r = Ray.getRandomRay();
-            rays.add(r);
         }
     }
+
     public void addRandomRays(int n) {
         for (int i = 0; i < n; i++) {
-           Ray p = Ray.getRandomRay();
-           rays.add(p);
+            Ray p = Ray.getRandomRay();
+            rays.add(p);
         }
     }
 
@@ -86,7 +87,7 @@ public class Problem {
 
 
         //Figures.renderTriangle(gl, new Vector2(0, 0), new Vector2(0.1, 0.2), new Vector2(0.5, -0.9), false);
-       // Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), false);
+        // Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), false);
         //Figures.renderCircle(gl, new Vector2(0,0), 0.2, false);
 //
 //        Ray ray = new Ray(new Vector2(-0.1,0.2), new Vector2(0.6,-0.1));
@@ -158,11 +159,10 @@ public class Problem {
     /**
      * Добавить точку
      *
-     * @param x      координата X точки
-     * @param y      координата Y точки
-     * @param setVal номер множества
+     * @param x координата X точки
+     * @param y координата Y точки
      */
-    public void addPoint(double x, double y, int setVal) {
+    public void addPoint(double x, double y) {
 //        Point point = new Point(x, y, setVal);
 //        points.add(point);
     }
