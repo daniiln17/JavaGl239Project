@@ -1,6 +1,5 @@
 package problem;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import java.util.Random;
 
@@ -33,6 +32,17 @@ public class Ray {
                 random.nextDouble() * 2 - 1, random.nextDouble() * 2 - 1
         ));
     }
+
+    public Find(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Vector2 pos) {
+        A = a;
+        B = b;
+        C = c;
+        D = d;
+        double k = B.minus(A).len();
+        double l = B.minus(C).len();
+        double S1 = l*k;
+    }
+
 
     public void render(GL2 gl) {
         Figures.renderQuad(gl, A, B, C, D, false);
