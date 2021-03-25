@@ -1,7 +1,12 @@
 package problem;
 
 import javax.media.opengl.GL2;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Класс задачи
@@ -14,9 +19,9 @@ public class Problem {
             "На плоскости задано множество широких лучей\" и множество\n" +
             "окружностей. Найти такую пару \"широкий луч\"-окружность, что фигура,\n" +
             "находящаяся внутри \"широкого луча\" и окружности, имеет максимальную \n" +
-            "площадь. В качестве ответа: выделить найденные \"широкий луч\" и\n"+
-            "окружность, выделить контур фигуры, которая ограничивает точки внутри\n"+
-            "найденного \"широкого луча\" и окружности, желательно выделить внутреннее\n"+
+            "площадь. В качестве ответа: выделить найденные \"широкий луч\" и\n" +
+            "окружность, выделить контур фигуры, которая ограничивает точки внутри\n" +
+            "найденного \"широкого луча\" и окружности, желательно выделить внутреннее\n" +
             "пространство фигуры (\"залить цветом\").";
 
     /**
@@ -30,7 +35,7 @@ public class Problem {
     private static final String FILE_NAME = "points.txt";
 
     /**
-     * список точек
+     * список лучей и окружностей
      */
     private ArrayList<Ray> rays;
     private ArrayList<Circle> circles;
@@ -45,7 +50,7 @@ public class Problem {
 
 
     /**
-     * Добавить заданное число случайных точек
+     * Добавить заданное число случайных окружностей и широких лучей
      *
      * @param n кол-во точек
      */
@@ -123,37 +128,55 @@ public class Problem {
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
-//        points.clear();
-//        try {
-//            File file = new File(FILE_NAME);
-//            Scanner sc = new Scanner(file);
-//            // пока в файле есть непрочитанные строки
-//            while (sc.hasNextLine()) {
-//                double x = sc.nextDouble();
-//                double y = sc.nextDouble();
-//                int setVal = sc.nextInt();
-//                sc.nextLine();
-//                Point point = new Point(x, y, setVal);
-//                points.add(point);
-//            }
-//        } catch (Exception ex) {
-//            System.out.println("Ошибка чтения из файла: " + ex);
-//        }
+
+        try {
+            File file = new File(FILE_NAME);
+            Scanner sc = new Scanner(file);
+            circles.clear();
+            int n = sc.nextInt();
+            // пока в файле есть непрочитанные строки
+            for (int i = 0; i < n; i++) {
+                double x = sc.nextDouble();
+                double y = sc.nextDouble();
+                double r = sc.nextDouble();
+                sc.nextLine();
+                Circle circle = new Circle(new Vector2(x, y), r);
+                circles.add(circle);
+            }
+            rays.clear();
+            int k = sc.nextInt();
+            for (int i = 0; i < k; i++) {
+                double x = sc.nextDouble();
+                double y = sc.nextDouble();
+                double x1 = sc.nextDouble();
+                double y1 = sc.nextDouble();
+                sc.nextLine();
+                Ray ray = new Ray(new Vector2(x, y), new Vector2(x1, y1));
+                rays.add(ray);
+            }
+        } catch (Exception ex) {
+            System.out.println("Ошибка чтения из файла: " + ex);
+        }
+
     }
 
     /**
      * Сохранить задачу в файл
      */
     public void saveToFile() {
-//        try {
-//            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
-//            for (Point point : points) {
-//                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
-//            }
-//            out.close();
-//        } catch (IOException ex) {
-//            System.out.println("Ошибка записи в файл: " + ex);
-//        }
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
+            out.println(circles.size());
+            for (Circle circle : circles) {
+                out.printf("%.2f %.2f %.2f\n", circle.pos.x, circle.pos.y, circle.r);
+            }
+            for (Ray ray : rays) {
+                out.printf("%.2f %.2f %.2f %.2f\n", ray.A.x, ray.A.y, ray.B.x, ray.B.y);
+            }
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Ошибка записи в файл: " + ex);
+        }
     }
 
     /**

@@ -38,9 +38,26 @@ public class Ray {
         B = b;
         C = c;
         D = d;
+
         double k = B.minus(A).len();
         double l = B.minus(C).len();
-        double S1 = l*k;
+        double S1 = l * k;//площадь широкого луча
+        double sa = ((pos.x - a.x) * (b.y - a.y) - (b.x - a.x) * (pos.y - a.y)) / 2;
+        double sb = ((pos.x - c.x) * (b.y - c.y) - (b.x - c.x) * (pos.y - c.y)) / 2;
+        double sc = ((pos.x - c.x) * (d.y - c.y) - (d.x - c.x) * (pos.y - c.y)) / 2;
+        double sd = ((pos.x - a.x) * (b.y - a.y) - (b.x - a.x) * (pos.y - a.y)) / 2;
+        double S2 = sa + sb + sc + sd;// сумма площадей треугольников с вершинами в центре луча и в центре окружности
+        if (S1 > S2) {
+            System.out.print("за");
+        }
+        if (S1 < S2) {
+            System.out.print("внутри");
+        }
+        Line l1 = new Line(a.x, a.y, d.x, d.y);
+        Line l2 = new Line(a.x, a.y, b.x, b.y);
+        Line l3 = new Line(b.x, b.y, c.x, c.y);
+        Line l4 = new Line(c.x, c.y, d.x, d.y);
+
     }
 
 
