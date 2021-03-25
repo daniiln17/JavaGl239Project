@@ -33,7 +33,7 @@ public class Ray {
         ));
     }
 
-    public Find(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Vector2 pos) {
+    public void find(Vector2 a, Vector2 b, Vector2 c, Vector2 d, Vector2 pos) {
         A = a;
         B = b;
         C = c;
