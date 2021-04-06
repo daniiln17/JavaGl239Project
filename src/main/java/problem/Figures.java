@@ -7,7 +7,7 @@ public class Figures {
     public static void renderPoint(GL2 gl, Vector2 pos, float size) {
         gl.glPointSize(5);
         gl.glBegin(GL.GL_POINTS);
-        gl.glColor3d(0, 1, 0);
+        gl.glColor3d(1, 0, 0);
         gl.glVertex2d(pos.x, pos.y);
         gl.glEnd();
     }
