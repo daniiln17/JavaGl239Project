@@ -45,9 +45,7 @@ public class Ray {
         if (s1 > s2) {
             System.out.print("за");
         }
-        if (s1 < s2) {
-            System.out.print("внутри");
-        }
+
         Line l1 = new Line(A.x, A.y, D.x, D.y);
         double a1 = A.y - D.y;
         double b1 = D.x - A.x;
@@ -117,100 +115,103 @@ public class Ray {
         if (d3 < 0) {
             System.out.println("нет");
         }
-        // 1 Круг внутри луча или касается
-        if (d3 <= 0 && d2 <= 0 && d1 <= 0) {
-            double S = Math.PI * circle.r * circle.r;
-        }
-        // 2 Пересечение сверху
-        if (d1 > 0 && d2 <= 0 && d3 <= 0) {
-            double S = Math.pow(circle.r, 2) * Math.PI - S1;
-        }
-        //  3 Пересечение справа
+        if (s1 < s2) {
+            System.out.print("внутри");
+            // 1 Круг внутри луча или касается
+            if (d3 <= 0 && d2 <= 0 && d1 <= 0) {
+                double S = Math.PI * circle.r * circle.r;
+            }
+            // 2 Пересечение сверху
+            if (d1 > 0 && d2 <= 0 && d3 <= 0) {
+                double S = Math.pow(circle.r, 2) * Math.PI - S1;
+            }
+            //  3 Пересечение справа
 
-        if (d2 > 0 && d3 <= 0 && d1 <= 0) {
-            double S = Math.pow(circle.r, 2) * Math.PI - S2;
-        }
-        //  4 Пересечение снизу
-        if (d3 > 0 && d2 <= 0 && d1 <= 0) {
-            double S = Math.pow(circle.r, 2) * Math.PI - S3;
-        }
-        // 5 Пересечение снизу и сверху
-        if (d1 > 0 && d3 > 0 && d2 <= 0) {
-            double S = Math.PI * Math.pow(circle.r, 2) - S1 - S3;
-        }
-        // 6 Касание окружнсти верхней вершиной, пересечение верхней и правой сторон  или пересечение правой и верхней сторон
-        if (d1 > 0 && d2 > 0 && d3 <= 0) {
-            double S = Math.PI * Math.pow(circle.r, 2) - S1 - S2;
-        }
-        // 7 Касание окружнсти нижней вершиной, пересечение нижней и правой сторон  или пересечение правой и нижней сторон
-        if (d2 > 0 && d3 > 0 && d1 <= 0) {
-            double S = Math.PI * Math.pow(circle.r, 2) - S3 - S2;
-        }
-        // 8 Пересечение трех сторон
-        if (d2 > 0 && d3 > 0 && d1 > 0) {
-            double S = Math.PI * Math.pow(circle.r, 2) - S3 - S2 - S1;
-        }
-        // 9 Только две общие точки пересечния правой и верхней сторон
-        if (x1 > A.x || X1 > A.x && d3 <= 0 && d1 > 0 && d2 > 0) {
-            if (X1 > A.x && Y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (y1 - A.y) - (x1 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((x1 * x2 + y1 * y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
+            if (d2 > 0 && d3 <= 0 && d1 <= 0) {
+                double S = Math.pow(circle.r, 2) * Math.PI - S2;
             }
-            if (X1 > A.x && y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (y1 - A.y) - (X1 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((x1 * X2 + y1 * Y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
+            //  4 Пересечение снизу
+            if (d3 > 0 && d2 <= 0 && d1 <= 0) {
+                double S = Math.pow(circle.r, 2) * Math.PI - S3;
             }
-            if (x1 > A.x && y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (Y1 - A.y) - (Y1 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((X1 * X2 + Y1 * Y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
+            // 5 Пересечение снизу и сверху
+            if (d1 > 0 && d3 > 0 && d2 <= 0) {
+                double S = Math.PI * Math.pow(circle.r, 2) - S1 - S3;
             }
-            if (x1 > A.x && Y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (Y1 - A.y) - (X1 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((X1 * x2 + Y1 * y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
+            // 6 Касание окружнсти верхней вершиной, пересечение верхней и правой сторон  или пересечение правой и верхней сторон
+            if (d1 > 0 && d2 > 0 && d3 <= 0) {
+                double S = Math.PI * Math.pow(circle.r, 2) - S1 - S2;
             }
-        }
+            // 7 Касание окружнсти нижней вершиной, пересечение нижней и правой сторон  или пересечение правой и нижней сторон
+            if (d2 > 0 && d3 > 0 && d1 <= 0) {
+                double S = Math.PI * Math.pow(circle.r, 2) - S3 - S2;
+            }
+            // 8 Пересечение трех сторон
+            if (d2 > 0 && d3 > 0 && d1 > 0) {
+                double S = Math.PI * Math.pow(circle.r, 2) - S3 - S2 - S1;
+            }
+            // 9 Только две общие точки пересечния правой и верхней сторон
+            if (x1 > A.x || X1 > A.x && d3 <= 0 && d1 > 0 && d2 > 0) {
+                if (X1 > A.x && Y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (y1 - A.y) - (x1 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((x1 * x2 + y1 * y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (X1 > A.x && y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (y1 - A.y) - (X1 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((x1 * X2 + y1 * Y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (x1 > A.x && y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (Y1 - A.y) - (Y1 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((X1 * X2 + Y1 * Y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (x1 > A.x && Y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (Y1 - A.y) - (X1 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((X1 * x2 + Y1 * y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+            }
 
-        // 10 Только две общие точки пересечния правой и нижней сторон
-        if (x3 > A.x || X3 > A.x && d3 <= 0 && d1 > 0 && d2 > 0) {
-            if (X3 > A.x && Y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (y3 - A.y) - (x3 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((x3 * x2 + y3 * y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
-            }
-            if (X3 > A.x && y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (y3 - A.y) - (X3 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((x3 * X2 + y3 * Y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
-            }
-            if (x3 > A.x && y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (Y3 - A.y) - (Y3 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((X3 * X2 + Y3 * Y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
-            }
-            if (x3 > A.x && Y2 > A.y) {
-                double SS = ((circle.pos.x - A.x) * (Y3 - A.y) - (X3 - A.x) * (circle.pos.y - A.y)) / 2;
-                double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
-                double alfa = Math.acos((X3 * x2 + Y3 * y2) / Math.pow(circle.r, 2));
-                double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
-                double S = SSS + SS + SS1;
+            // 10 Только две общие точки пересечния правой и нижней сторон
+            if (x3 > A.x || X3 > A.x && d3 <= 0 && d1 > 0 && d2 > 0) {
+                if (X3 > A.x && Y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (y3 - A.y) - (x3 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((x3 * x2 + y3 * y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (X3 > A.x && y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (y3 - A.y) - (X3 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((x3 * X2 + y3 * Y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (x3 > A.x && y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (Y3 - A.y) - (Y3 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (Y2 - A.y) - (X2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((X3 * X2 + Y3 * Y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
+                if (x3 > A.x && Y2 > A.y) {
+                    double SS = ((circle.pos.x - A.x) * (Y3 - A.y) - (X3 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double SS1 = ((circle.pos.x - A.x) * (y2 - A.y) - (x2 - A.x) * (circle.pos.y - A.y)) / 2;
+                    double alfa = Math.acos((X3 * x2 + Y3 * y2) / Math.pow(circle.r, 2));
+                    double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
+                    double S = SSS + SS + SS1;
+                }
             }
         }
     }
