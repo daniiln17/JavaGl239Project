@@ -1,11 +1,13 @@
 package Gui;
 
-import problem.Point;
 import problem.Problem;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * Класс формы приложения
@@ -16,8 +18,8 @@ public class Form extends JFrame {
      */
     private JPanel GLPlaceholder;
     private JPanel root;
-    private JTextField xPointField;
-    private JTextField yPointField;
+    private JTextField xCircleField;
+    private JTextField yCircleField;
     private JButton randomRayBtn;
     private JTextField rayCntField;
     private JButton loadFromFileBtn;
@@ -25,9 +27,15 @@ public class Form extends JFrame {
     private JButton clearBtn;
     private JButton solveBtn;
     private JLabel problemText;
-    private JButton addPoint;
+    private JButton addCircle;
     private JButton randomCircleBtn;
     private JTextField circleCntField;
+    private JTextField radCircleField;
+    private JTextField x1RayField;
+    private JTextField y1RayField;
+    private JTextField x2RayField;
+    private JTextField y2RayField;
+    private JButton addRayBtn;
     /**
      * таймер
      */
@@ -82,12 +90,23 @@ public class Form extends JFrame {
         // задаём текст полю описания задачи
         problemText.setText("<html>" + Problem.PROBLEM_TEXT.replaceAll("\n", "<br>"));
 
-        addPoint.addActionListener(new ActionListener() {
+        addCircle.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                double x = Double.parseDouble(xPointField.getText());
-                double y = Double.parseDouble(yPointField.getText());
-                renderer.problem.addPoint(x, y);
+                double x = Double.parseDouble(xCircleField.getText());
+                double y = Double.parseDouble(yCircleField.getText());
+                double rad = Double.parseDouble(radCircleField.getText());
+                renderer.problem.addCircle(x, y, rad);
+            }
+        });
+        addRayBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                double x = Double.parseDouble(x1RayField.getText());
+                double y = Double.parseDouble(y1RayField.getText());
+                double x2 = Double.parseDouble(x2RayField.getText());
+                double y2 = Double.parseDouble(y2RayField.getText());
+                renderer.problem.addRay(x, y, x2, y2);
             }
         });
         randomRayBtn.addActionListener(new ActionListener() {

@@ -40,12 +40,16 @@ public class Problem {
     private ArrayList<Ray> rays;
     private ArrayList<Circle> circles;
 
+    Ray ray;
+    Circle circle;
+
     /**
      * Конструктор класса задачи
      */
     public Problem() {
         rays = new ArrayList<>();
         circles = new ArrayList<>();
+
     }
 
 
@@ -74,6 +78,8 @@ public class Problem {
     public void clear() {
         circles.clear();
         rays.clear();
+        ray = null;
+        circle = null;
     }
 
     /**
@@ -89,12 +95,16 @@ public class Problem {
         for (Ray ray : rays) {
             ray.render(gl);
         }
+        if (ray != null) {
+            ray.render(gl);
+            circle.render(gl);
+        }
 
 
         //Figures.renderTriangle(gl, new Vector2(0, 0), new Vector2(0.1, 0.2), new Vector2(0.5, -0.9), false);
-         //Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), true);
+        //Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), true);
         //Figures.renderCircle(gl, new Vector2(0,0), 0.2, false);
-       // Figures.renderPoint(gl, new Vector2(0.5,0.7), 1000);
+        // Figures.renderPoint(gl, new Vector2(0.5,0.7), 1000);
 //
 //        Ray ray = new Ray(new Vector2(-0.1,0.2), new Vector2(0.6,-0.1));
 //        ray.render(gl);
@@ -110,20 +120,18 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        // перебираем пары точек
-//        for (Point p : points) {
-//            for (Point p2 : points) {
-//                // если точки являются разными
-//                if (p != p2) {
-//                    // если координаты у них совпадают
-//                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-//                        p.isSolution = true;
-//                        p2.isSolution = true;
-//                    }
-//                }
-//            }
-//        }
+        double maxs = 0;
+        for (Ray rayloop : rays)
+            for (Circle circleLoop : circles) {
+                double i = rayloop.find(circleLoop);
+                if (i > maxs) {
+                    maxs = i;
+                    ray = rayloop;
+                    circle = circleLoop;
+                }
+            }
     }
+
 
     /**
      * Загрузить задачу из файла
@@ -171,6 +179,7 @@ public class Problem {
             for (Circle circle : circles) {
                 out.printf("%.2f %.2f %.2f\n", circle.pos.x, circle.pos.y, circle.r);
             }
+            out.println(rays.size());
             for (Ray ray : rays) {
                 out.printf("%.2f %.2f %.2f %.2f\n", ray.A.x, ray.A.y, ray.B.x, ray.B.y);
             }
@@ -186,9 +195,20 @@ public class Problem {
      * @param x координата X точки
      * @param y координата Y точки
      */
-    public void addPoint(double x, double y) {
-//        Point point = new Point(x, y, setVal);
-//        points.add(point);
+    public void addCircle(double x, double y, double rad) {
+        Circle circle = new Circle(new Vector2(x, y), rad);
+        circles.add(circle);
+    }
+
+    /**
+     * Добавить точку
+     *
+     * @param x координата X точки
+     * @param y координата Y точки
+     */
+    public void addRay(double x, double y, double x2, double y2) {
+        Ray ray = new Ray(new Vector2(x, y), new Vector2(x2, y2));
+        rays.add(ray);
     }
 
 }

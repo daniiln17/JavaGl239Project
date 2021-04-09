@@ -120,6 +120,7 @@ public class Ray {
             // 1 Круг внутри луча или касается
             if (d3 <= 0 && d2 <= 0 && d1 <= 0) {
                 double S = Math.PI * circle.r * circle.r;
+                return S;
             }
             // 2 Пересечение сверху
             if (d1 > 0 && d2 <= 0 && d3 <= 0) {
@@ -211,9 +212,11 @@ public class Ray {
                     double alfa = Math.acos((X3 * x2 + Y3 * y2) / Math.pow(circle.r, 2));
                     double SSS = Math.PI * Math.pow(circle.r, 2) * alfa / 360;
                     double S = SSS + SS + SS1;
+                    return S;
                 }
             }
         }
+        return  0;
     }
 
 
