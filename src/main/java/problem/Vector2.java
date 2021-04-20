@@ -49,4 +49,12 @@ public class Vector2 {
     public Vector2 multiply(double b) {
         return new Vector2(x * b, y * b);
     } //
+
+    @Override
+    public String toString() {
+        return "Vector2{" +
+                "x=" + x +
+                ", y=" + y +
+                '}';
+    }
 }

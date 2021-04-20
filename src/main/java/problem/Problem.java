@@ -156,6 +156,8 @@ public class Problem {
                     circle = circleLoop;
                 }
             }
+        if(maxPointCnt==0)
+            System.out.println("Не найдено пересечений");
     }
 
 
