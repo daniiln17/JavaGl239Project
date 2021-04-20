@@ -2,6 +2,7 @@ package problem;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Circle {
@@ -25,5 +26,9 @@ public class Circle {
 
     public void render(GL2 gl) {
         Figures.renderCircle(gl, pos, r, false);
+    }
+
+    public boolean contains(Vector2 pos) {
+        return pos.minus(this.pos).len() <= r;
     }
 }

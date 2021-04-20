@@ -37,4 +37,16 @@ public class Vector2 {
                 this.y + v.y);
     }
 
+
+    public double angle() {
+        return Math.atan2(x, y);
+    } //
+
+    public double cross(Vector2 v) {
+        return x * v.y - v.x * y;
+    }
+
+    public Vector2 multiply(double b) {
+        return new Vector2(x * b, y * b);
+    } //
 }

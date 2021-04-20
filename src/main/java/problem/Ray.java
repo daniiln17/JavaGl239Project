@@ -1,6 +1,7 @@
 package problem;
 
 import javax.media.opengl.GL2;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Ray {
@@ -216,11 +217,20 @@ public class Ray {
                 }
             }
         }
-        return  0;
+        return 0;
     }
 
 
     public void render(GL2 gl) {
         Figures.renderQuad(gl, A, B, C, D, false);
+    }
+
+    public boolean contains(Vector2 pos) {
+        ArrayList<Vector2> lst = new ArrayList<>();
+        lst.add(A);
+        lst.add(B);
+        lst.add(C);
+        lst.add(D);
+        return new Polygon(lst).isInside(pos);
     }
 }
