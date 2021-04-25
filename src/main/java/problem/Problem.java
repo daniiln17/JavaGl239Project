@@ -1,13 +1,11 @@
 package problem;
 
-import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -41,7 +39,7 @@ public class Problem {
      */
     private ArrayList<Ray> rays;
     private ArrayList<Circle> circles;
-    ArrayList<Vector2> squarePoints;
+
     Ray ray;
     Circle circle;
 
@@ -51,7 +49,6 @@ public class Problem {
     public Problem() {
         rays = new ArrayList<>();
         circles = new ArrayList<>();
-        squarePoints = new ArrayList<>();
 
     }
 
@@ -83,7 +80,6 @@ public class Problem {
         rays.clear();
         ray = null;
         circle = null;
-        squarePoints.clear();
     }
 
     /**
@@ -92,8 +88,6 @@ public class Problem {
      * @param gl переменная OpenGL для рисования
      */
     public void render(GL2 gl) {
-
-        gl.glColor3d(1, 1, 1);
         for (Circle circle : circles) {
             circle.render(gl);
         }
@@ -101,18 +95,11 @@ public class Problem {
         for (Ray ray : rays) {
             ray.render(gl);
         }
-        gl.glColor3d(0, 1, 0);
         if (ray != null) {
             ray.render(gl);
             circle.render(gl);
         }
-        gl.glColor3d(1, 0, 0);
-        gl.glPointSize(5);
-        gl.glBegin(GL.GL_POINTS);
-        for (Vector2 point : squarePoints)
-            gl.glVertex2d(point.x, point.y);
-        gl.glEnd();
-        gl.glPointSize(1);
+
 
         //Figures.renderTriangle(gl, new Vector2(0, 0), new Vector2(0.1, 0.2), new Vector2(0.5, -0.9), false);
         //Figures.renderQuad(gl, new Vector2(0, 0), new Vector2(0.1, 0), new Vector2(0.1, -0.9), new Vector2(-0.1, -0.9), true);
@@ -133,31 +120,16 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
-        Random random = new Random();
-        ArrayList<Vector2> points = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
-            points.add(new Vector2(random.nextDouble() * 2 - 1, random.nextDouble() * 2 - 1));
-        }
-        int maxPointCnt = 0;
+        double maxs = 0;
         for (Ray rayloop : rays)
             for (Circle circleLoop : circles) {
-                int localPointCnt = 0;
-                ArrayList<Vector2> localPoints = new ArrayList<>();
-                for (Vector2 point : points) {
-                    if (rayloop.contains(point) && circleLoop.contains(point)) {
-                        localPointCnt++;
-                        localPoints.add(point);
-                    }
-                }
-                if (localPointCnt > maxPointCnt) {
-                    squarePoints = localPoints;
-                    maxPointCnt = localPointCnt;
+                double i = rayloop.find(circleLoop);
+                if (i > maxs) {
+                    maxs = i;
                     ray = rayloop;
                     circle = circleLoop;
                 }
             }
-        if(maxPointCnt==0)
-            System.out.println("Не найдено пересечений");
     }
 
 
